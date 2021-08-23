@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # make text files
-echo crc > 1.txt
-echo 32 > 2.txt
-echo foo > 3.txt
-echo decr > 4.txt
-echo ypt > 5.txt
-echo able > 6.txt
+echo -n crc > 1.txt
+echo -n  32 > 2.txt
+echo -n  foo > 3.txt
+echo -n  decr > 4.txt
+echo -n  ypt > 5.txt
+echo -n  able > 6.txt
 
 # make zip files
 zip 1.zip 1.txt 2.txt
