@@ -1,5 +1,7 @@
 #!/bin/bash
 
+apt install rar -y
+apt install rar -y
 python3 -m pip install -r requirements.txt
 
 # make text files
@@ -12,11 +14,11 @@ echo -n  able > 6.txt
 
 # make zip files
 zip 1.zip 1.txt 2.txt
-zip 2.zip 3.txt
-zip 3.zip 4.txt 5.txt 6.txt
+rar a 2.rar 3.txt
+7z a 3.7z 4.txt 5.txt 6.txt
 
 # run the cracker
-time python3 crack.py 1.zip 2.zip 3.zip | tee result.txt
+time python3 crack.py 1.zip 2.rar 3.7z | tee result.txt
 
 # check the result
 grep '1.txt : '\''crc'\'  result.txt || { echo failed ; exit 1 ; }
