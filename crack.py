@@ -39,14 +39,29 @@ if args.dec:
 
 if args.file:
     print('reading zip files...', file=sys.stderr)
-    import zipfile
-    for zipname in args.file:
-        fh = zipfile.ZipFile(zipname)
-        for info in fh.infolist():
-            targets['%s / %s' % ( zipname, info.filename )] = ( info.CRC, info.file_size )
-            crcs += [( info.CRC, info.file_size )]
-            limit = max(limit, info.file_size)
-            print('file found: %s / %s: crc = 0x%08x, size = %d' % (zipname, info.filename, info.CRC, info.file_size), file=sys.stderr)
+    import rarfile,zipfile,py7zlib
+    for archivename in args.file:
+        if archivename.endswith(".rar"):
+            fh = rarfile.RarFile(archivename)
+            for info in fh.infolist():
+                targets['%s / %s' % ( archivename, info.filename )] = ( info.CRC, info.file_size )
+                crcs += [( info.CRC, info.file_size )]
+                limit = max(limit, info.file_size)
+                print('file found: %s / %s: crc = 0x%08x, size = %d' % (archivename, info.filename, info.CRC, info.file_size), file=sys.stderr)
+        elif archivename.endswith(".zip"):
+            fh = zipfile.ZipFile(archivename)
+            for info in fh.infolist():
+                targets['%s / %s' % ( archivename, info.filename )] = ( info.CRC, info.file_size )
+                crcs += [( info.CRC, info.file_size )]
+                limit = max(limit, info.file_size)
+                print('file found: %s / %s: crc = 0x%08x, size = %d' % (archivename, info.filename, info.CRC, info.file_size), file=sys.stderr)
+        elif archivename.endswith(".7z"):
+            file7z = py7zlib.Archive7z(open(archivename,'rb'))
+            for info in file7z.getmembers():
+                targets['%s / %s' % ( archivename, info.filename )] = ( info.digest, info.size )
+                crcs += [( info.digest, info.size )]
+                limit = max(limit, info.size)
+                print('file found: %s / %s: crc = 0x%08x, size = %d' % (archivename, info.filename, info.digest, info.size), file=sys.stderr)
 
 if not crcs:
     parser.error('No CRCs given')
