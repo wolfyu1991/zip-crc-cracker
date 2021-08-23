@@ -1,5 +1,7 @@
 #!/bin/bash
 
+python3 -m pip install -r requirements.txt
+
 # make text files
 echo -n crc > 1.txt
 echo -n  32 > 2.txt
