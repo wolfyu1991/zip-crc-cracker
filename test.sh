@@ -19,10 +19,11 @@ zip 3.zip 4.txt 5.txt 6.txt
 time python3 crack.py 1.zip 2.zip 3.zip | tee result.txt
 
 # check the result
-grep '1.txt : '\''crc\\n'\'  result.txt || { echo failed ; exit 1 ; }
-grep '2.txt : '\''32\\n'\'   result.txt || { echo failed ; exit 1 ; }
-grep '3.txt : '\''foo\\n'\'  result.txt || { echo failed ; exit 1 ; }
-grep '4.txt : '\''decr\\n'\' result.txt || { echo failed ; exit 1 ; }
-grep '5.txt : '\''ypt\\n'\'  result.txt || { echo failed ; exit 1 ; }
-grep '6.txt : '\''able\\n'\' result.txt || { echo failed ; exit 1 ; }
+grep '1.txt : '\''crc'\'  result.txt || { echo failed ; exit 1 ; }
+grep '2.txt : '\''32'\'   result.txt || { echo failed ; exit 1 ; }
+grep '3.txt : '\''foo'\'  result.txt || { echo failed ; exit 1 ; }
+grep '4.txt : '\''decr'\' result.txt || { echo failed ; exit 1 ; }
+grep '5.txt : '\''ypt'\'  result.txt || { echo failed ; exit 1 ; }
+grep '6.txt : '\''able'\' result.txt || { echo failed ; exit 1 ; }
+grep 'flag : crc32foodecryptable' result.txt || { echo failed ; exit 1 ; }
 echo passed
