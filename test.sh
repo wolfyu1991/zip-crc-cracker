@@ -1,7 +1,5 @@
 #!/bin/bash
 
-apt install rar -y
-apt install rar -y
 python3 -m pip install -r requirements.txt
 
 # make text files
