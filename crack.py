@@ -148,6 +148,10 @@ result = collections.defaultdict(list)
 for line in output.decode().strip().split('\n'):
     crc, *val = map(lambda x: int(x, 16), line.split())
     result[( crc, len(val) )] += [ bytes(val) ]
+flag = ''
 for key, crc in targets.items():
     for s in result[crc]:
         print('%s : %s' % (key, repr(s)[1:]))
+        flag += repr(s)[2:-1]
+
+print('\nflag : %s' % flag)
