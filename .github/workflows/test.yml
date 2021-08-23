@@ -12,5 +12,8 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v1
 
+    - name: Install Ubuntu packages
+      run: sudo apt-get install -y rar p7zip
+
     - name: Run tests
       run: bash test.sh
